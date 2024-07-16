@@ -7,6 +7,11 @@ Zum Tracking der Flurförderfahrzeuge (FFZ) wurde von einem Praktikanten in sein
 
 Du sollst nun die Weiterentwicklung übernehmen, da bisher nur grundlegende Funktionen implementiert wurden und auch seit dem letzten Arbeitstag des Praktikanten die App gar nicht mehr nutzbar ist.
 
+## Vorgehen
+Erstelle zunächst einen Fork dieses Projektes, folge dann der unten angegebenen Installations-Anleitung.
+Führe nun die notwendigen Änderungen durch und erstelle Commits, mit denen sich deine Arbeitsschritte strukturiert nachvollziehen lassen.
+Vergiss nicht, deine Commits zu pushen!
+
 ## Nötige Software
 Installiere folgende Software, um am Projekt arbeiten zu können
 - Git
