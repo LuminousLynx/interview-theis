@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Stapler-Übersicht{% endblock title %}
+
+{% block content %}
+    <h2>Stapler Übersicht</h2>
+    <div style="display: grid; gap: .5rem; grid-template-columns: repeat(5, 1fr);">
+        {% for f in forklifts %}
+            {% include 'forklift/forklift_card.html' %}
+        {% endfor %}
+    </div>
+{% endblock content %}
+
+{% block script %}
+<script>
+    function toggle_operator(operator_id, forklift_id) {
+        $.post({
+            url: '{% url "forklift:allow_operator" %}',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}',
+            },
+            data: {
+                operator_id: operator_id,
+                forklift_id: forklift_id,
+                allowed: $('#operator-' + operator_id + '-' + forklift_id).prop('checked'),
+            },
+        }).done(function (data) {
+            location.reload();
+        }).fail(function (data) {
+
+        }).always(function (data) {
+
+        })
+    }
+
+    function toggle_can_operate(forklift_id) {
+        // TODO Implement
+    }
+</script>
+{% endblock script %}
+    
