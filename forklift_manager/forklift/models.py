@@ -11,7 +11,8 @@ class Forklift(models.Model):
 
     max_load = models.IntegerField(default=800)
     hours_run = models.FloatField(default=0)
-    next_check = models.DateField(null=True, blank=True, default=None)
+    #The following line caused a server error and was commented out.
+    #next_check = models.DateField(null=True, blank=True, default=None)         
 
     can_operate = models.BooleanField(default=True)
     allowed_operators = models.JSONField(default=list)
