@@ -4,7 +4,7 @@ Diese Log-Datei enthält eine Auflistung meiner Vorgehensweisen zur Lösung der 
 
 ## Lösung: Server Error 500
 1) localhost:8081 im Browser nach Start des Programms in launch.json mit Django run config aufgerufen -> Server Error 500 wie erwartet
-2) In settings.py DEBUG=True gesetzt um stacktrace im Browser zu erhalten und Fehler nachvollziehen zu können
+2) In settings.py DEBUG=True gesetzt um stacktrace im Browser zu erhalten und Fehler nachvollziehen zu können (nach fix -> DEBUG=False!!)
 3) offensichtlich Fehler aus dem Template "overview.html", das von views.py zu rendern versucht wurde -> Fehler: forklift_forklift.next_check: no such column
 4) Context der render-Methode ruft die Klasse Forklift aus models.py auf -> in models.py nach next_check gesucht
 5) in models.py das DataField next_check auskommentiert -> Server startet und App zeigt beschriebene Kacheln
