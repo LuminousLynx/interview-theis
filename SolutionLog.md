@@ -1,8 +1,8 @@
-#Lösungs-Log
+# Lösungs-Log
 
 Diese Log-Datei enthält eine Auflistung meiner Vorgehensweisen zur Lösung der einzelnen Teilprobleme, wenn diese nicht bereits durch Commit-Messages ersichtlich sind.
 
-##Lösung: Server Error 500
+## Lösung: Server Error 500
 1) localhost:8081 im Browser nach Start des Programms in launch.json mit Django run config aufgerufen -> Server Error 500 wie erwartet
 2) In settings.py DEBUG=True gesetzt um stacktrace im Browser zu erhalten und Fehler nachvollziehen zu können
 3) offensichtlich Fehler aus dem Template "overview.html", das von views.py zu rendern versucht wurde -> Fehler: forklift_forklift.next_check: no such column
