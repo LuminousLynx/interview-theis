@@ -28,3 +28,11 @@ def allow_operator(request: HttpRequest) -> HttpResponseBase:
         return HttpResponse()
     except Exception as e:
         return HttpResponseBadRequest(e)
+    
+
+def can_operate(reguest: HttpRequest) -> HttpResponseBase:
+    try:
+        #TO DO: implement
+        return HttpResponse()
+    except Exception as e:
+        return HttpResponseBadRequest(e)

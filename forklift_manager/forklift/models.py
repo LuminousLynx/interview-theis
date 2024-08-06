@@ -11,8 +11,7 @@ class Forklift(models.Model):
 
     max_load = models.IntegerField(default=800)
     hours_run = models.FloatField(default=0)
-    #The following line caused a server error and was commented out.
-    #next_check = models.DateField(null=True, blank=True, default=None)         
+    next_check = models.DateField(null=True, blank=True, default=None)         
 
     can_operate = models.BooleanField(default=True)
     allowed_operators = models.JSONField(default=list)
@@ -25,3 +24,51 @@ class Forklift(models.Model):
         managed = True
         verbose_name = 'Forklift'
         verbose_name_plural = 'Forklifts'
+
+
+
+class Workshop(models.Model):
+    name = models.CharField(max_length=80, unique=True)
+
+    mail = models.CharField(max_length=80)
+    operates_in = models.CharField(max_length=50)
+
+
+    can_fix_brands = models.JSONField(default=dict)
+    
+    fastest_repair_times = models.JSONField(default=dict)
+    lowest_mean_price = models.JSONField(default=dict)
+    reliability_rating = models.JSONField(default=dict)         
+
+    def __str__(self):
+        return f'{self.name}'
+
+    class Meta:
+        db_table = ''
+        managed = True
+        verbose_name = 'Workshop'
+        verbose_name_plural = 'Workshops'
+
+
+
+class Repair(models.Model):
+    name = models.CharField(max_length=80, unique=True)
+
+    mail = models.CharField(max_length=80)
+    operates_in = models.CharField(max_length=50)
+
+
+    can_fix_brands = models.JSONField(default=dict)
+    
+    fastest_repair_times = models.JSONField(default=dict)
+    lowest_mean_price = models.JSONField(default=dict)
+    reliability_rating = models.JSONField(default=dict)         
+
+    def __str__(self):
+        return f'{self.name}'
+
+    class Meta:
+        db_table = ''
+        managed = True
+        verbose_name = 'Workshop'
+        verbose_name_plural = 'Workshops'
