@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
-{% block title %}Stapler-Übersicht{% endblock title %}
+{% block title %}Übersicht Staplerfahrzeuge{% endblock title %}
 
 {% block content %}
-    <h2>Stapler Übersicht</h2>
+    <h2><b>Übersicht Staplerfahrzeuge</b></h2>
     <div style="display: grid; gap: .5rem; grid-template-columns: repeat(5, 1fr);">
         {% for f in forklifts %}
             {% include 'forklift/forklift_card.html' %}
