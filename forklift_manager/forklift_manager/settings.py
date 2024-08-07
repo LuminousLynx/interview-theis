@@ -56,7 +56,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            BASE_DIR / 'forklift_manager' / 'templates'
+            BASE_DIR / 'forklift_manager' / 'templates',
+            BASE_DIR / 'forklift' / 'templates'
         ],
         'APP_DIRS': True,
         'OPTIONS': {

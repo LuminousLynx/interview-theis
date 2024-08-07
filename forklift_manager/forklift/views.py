@@ -3,6 +3,7 @@ from django.http.request import HttpRequest
 from django.http.response import HttpResponse, HttpResponseBadRequest, HttpResponseBase
 
 from forklift.models import Forklift
+import json
 
 # Create your views here.
 def overview(request: HttpRequest) -> HttpResponseBase:
@@ -13,38 +14,56 @@ def overview(request: HttpRequest) -> HttpResponseBase:
 
 def toggle_operator(request: HttpRequest) -> HttpResponseBase:
     try:
-        data = request.POST
+        if request.method == 'PUT':
+            
+            data=json.loads(request.body)
+            forklift_id = data.get("forklift_id")
+            operator_id = data.get("operator_id")
+            allowed = data.get("allowed")
+            
+            forklift = Forklift.objects.get(id=forklift_id)
+            operators = list(forklift.allowed_operators)
 
-        forklift = Forklift.objects.get(id=data['forklift_id'])
-        operators = set(forklift.allowed_operators)
-        
-        
-        if data['allowed'] == 'true':
-            operators.add(int(data['operator_id']))
-        elif data['operator_id'] in operators:
-            operators.remove(int(data['operator_id']))
+            if allowed:
+                operators.append(operator_id)
+                print(operators)
+            elif operator_id in operators:
+                operators.remove(operator_id)
 
-        forklift.allowed_operators = list(operators)
-        forklift.save(force_update=True)
-        return HttpResponse("Hello there! :)")
+            forklift.allowed_operators = operators
+            forklift.save(force_update=True)
+            return HttpResponse()
+        return HttpResponse("Request Method did not seem to be POST")
     except Exception as e:
         return HttpResponseBadRequest(e)
     
 
 def can_operate(request: HttpRequest) -> HttpResponseBase:
     try:
-        data = request.POST
+        if request.method == 'PUT':
+            
+            data = json.loads(request.body)
+            forklift_id = data.get("forklift_id")
+            toggle = data.get("can_operate")
 
-        forklift = Forklift.objects.get(id=data["forklift_id"])
-        active = forklift.can_operate
+            forklift = Forklift.objects.get(id=forklift_id)
 
-        if data["can_operate"] == "true":
-            active = True
-        else:
-            active = False
-        
-        forklift.can_operate = active
-        forklift.save(force_update=True)
-        return HttpResponse("Hello there! :)")
+            if toggle:
+                forklift.can_operate = 1
+            else:
+                forklift.can_operate = 0
+
+            forklift.save(force_update=True)
+
+            return HttpResponse()
+        return HttpResponse("Request Method did not seem to be PUT")
+    except Exception as e:
+        return HttpResponseBadRequest(e)
+    
+
+def change_hours_run(request: HttpRequest) -> HttpResponseBase:
+    try:
+
+        return HttpResponse()
     except Exception as e:
         return HttpResponseBadRequest(e)

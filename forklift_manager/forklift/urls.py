@@ -6,4 +6,5 @@ urlpatterns = [
     path('', views.overview, name='overview'),
     path('status/', views.can_operate, name='can_operate'),
     path('operators/', views.toggle_operator, name='toggle_operator'),
+    path('hours/', views.change_hours_run, name='hours_run'),
 ]

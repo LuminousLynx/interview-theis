@@ -2,7 +2,7 @@
     <div class="card-header" style="display: flex; align-items: center; justify-content: space-between;">
         <b>{{ f.serial_no }} ({{ f.brand }})</b>
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="can-operate-{{ f.id }}" {% if f.can_operate %}checked{% endif %} onchange="toggle_can_operate( {{f.id}} );">
+            <input class="form-check-input" type="checkbox" value="" id="can-operate-{{ f.id }}" {% if f.can_operate %}checked{% endif %} onchange="toggle_can_operate({{f.id}});">
             <label class="form-check-label" for="can-operate-{{ f.id }}">
                 aktiv
             </label>

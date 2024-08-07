@@ -14,42 +14,46 @@
 {% block script %}
 <script>
     function toggle_operator(operator_id, forklift_id) {
-        $.post({
+        $.ajax({
+            type: 'PUT',
             url: '{% url "forklift:toggle_operator" %}',
             headers: {
                 'X-CSRFToken': '{{ csrf_token }}',
             },
-            data: {
+            contentType: 'application/json',
+            data: JSON.stringify({
                 operator_id: operator_id,
                 forklift_id: forklift_id,
-                allowed: $('operator-' + operator_id + '-' + forklift_id).prop('checked'=true),
-            },
+                allowed: $('#operator-' + operator_id + '-' + forklift_id).prop(checked=true),
+            }),
         }).done(function (data) {
             location.reload();
         }).fail(function (data) {
-
+            console.error("Failed to toggle operator: ", data)
         }).always(function (data) {
-
-        })
+            console.log("Successfully toggled operator.")
+        });
     }
 
     function toggle_can_operate(forklift_id) {
-        $.post({
+        $.ajax({
+            type: 'PUT',
             url: '{% url "forklift:can_operate" %}',
             headers: {
                 'X-CSRFToken': '{{ csrf_token }}',
             },
-            data: {
+            contentType: 'application/json',
+            data: JSON.stringify({
                 forklift_id: forklift_id,
-                can_operate: $('can-operate-' + forklift_id).prop('checked'=true),
-            },
+                can_operate: $('#can-operate-' + forklift_id).prop(checked=true),
+            }),
         }).done(function (data) {
             location.reload();
         }).fail(function (data) {
-
+            console.error("Failed to toggle operator: ", data)
         }).always(function (data) {
-
-        })
+            console.log("Successfully toggled operator.")
+        });
     }
 </script>
 {% endblock script %}
