@@ -12,3 +12,8 @@ Diese Log-Datei enthält eine Auflistung meiner Vorgehensweisen zur Lösung der 
 
 UPDATE: scratch 1-5. Migrated 0002_forklift_next_check.py. Works now. 
 
+## Funktionsumfang
+Lösung der Tickbox-Backends mit JSON und ajax. Probleme gab es bei Eingabefeldern mit Text bzw Daten: Parsen der Values mit JSON führte zu None-Werten im Backend und damit zu BadRequests. Zeitbedingter Workaround über Buttons mit Eingabefeldern. Nicht schön, aber funktioniert!
+
+Facelift Interface als kleine Spielerei: Erste Berührung mit html templates!
+

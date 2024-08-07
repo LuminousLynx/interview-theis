@@ -57,7 +57,8 @@
     }
 
     function update_hours_run(forklift_id){
-        var hoursRun = String($("#hours-run-" + forklift_id).get(value));
+
+        let added_time = prompt("Füge hier die neue Laufzeit in Stunden ein. Trenne die Dezimalstelle bitte durch einen Punkt!").toString()
         $.ajax({
             type: 'PUT',
             url: '{% url "forklift:hours_run" %}',
@@ -67,7 +68,7 @@
             contentType: 'application/json',
             data: JSON.stringify({
                 forklift_id: forklift_id,
-                hours_run: hoursRun,
+                added_time: added_time,
             }),
         }).done(function (data) {
             location.reload();
@@ -75,6 +76,29 @@
             console.error("Failed to update hours run: ", data)
         }).always(function (data) {
             console.log("Successfully updated hours run.")
+        });
+    }
+
+    function update_next_check(forklift_id){
+
+        let new_date = prompt("Gib hier das neue Datum im Format TT.MM.JJJJ ein!").toString()
+        $.ajax({
+            type: 'PUT',
+            url: '{% url "forklift:next_check" %}',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}',
+            },
+            contentType: 'application/json',
+            data: JSON.stringify({
+                forklift_id: forklift_id,
+                next_check: new_date,
+            }),
+        }).done(function (data) {
+            location.reload();
+        }).fail(function (data) {
+            console.error("Failed to update next check: ", data)
+        }).always(function (data) {
+            console.log("Successfully updated next check.")
         });
     }
 </script>

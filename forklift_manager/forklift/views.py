@@ -4,6 +4,7 @@ from django.http.response import HttpResponse, HttpResponseBadRequest, HttpRespo
 
 from forklift.models import Forklift
 import json
+import datetime
 
 # Create your views here.
 def overview(request: HttpRequest) -> HttpResponseBase:
@@ -56,16 +57,39 @@ def can_operate(request: HttpRequest) -> HttpResponseBase:
     
 
 def update_hours_run(request: HttpRequest) -> HttpResponseBase:
-    print(1)
-    try:
-        if request.method == 'PUT':
+        
+    if request.method == 'PUT':
+        try:
 
             data = json.loads(request.body)
             forklift_id = data.get("forklift_id")
-            hours = data.get("hours_run")
+            added_time = data.get("added_time")
 
             forklift = Forklift.objects.get(id=forklift_id)
-            forklift.hours_run = hours
+            forklift.hours_run += float(added_time)
+            forklift.hours_run = round(forklift.hours_run, 1)
+            forklift.save()
+
+            return HttpResponse()
+        except Exception as e:
+            return HttpResponseBadRequest(e)
+    return HttpResponse("This page has no content. The URL to this page is used automatically.")
+    
+    
+def update_next_check(request: HttpRequest) -> HttpResponseBase:
+    try:
+        if request.method == 'PUT':
+            
+            data = json.loads(request.body)
+            forklift_id = data.get("forklift_id")
+            next_check = data.get("next_check")
+            
+            date_list = next_check.split(".")
+            new_date = date_list[2]+"-"+date_list[1]+"-"+date_list[0]
+
+            forklift = Forklift.objects.get(id=forklift_id)
+
+            forklift.next_check = new_date
             forklift.save()
 
             return HttpResponse()

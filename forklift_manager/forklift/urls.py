@@ -7,4 +7,5 @@ urlpatterns = [
     path('status/', views.can_operate, name='can_operate'),
     path('operators/', views.toggle_operator, name='toggle_operator'),
     path('hours/', views.update_hours_run, name='hours_run'),
+    path('next_check/', views.update_next_check, name='next_check'),
 ]

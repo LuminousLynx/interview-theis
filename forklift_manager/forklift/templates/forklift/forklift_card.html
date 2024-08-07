@@ -41,16 +41,15 @@
 
     </div>
     <div class="card-footer p-1">
-        <div class="input-group">
-            <span class="input-group-text" id="hours-run-{{ f.id }}">Gelaufene Stunden</span>
-            <input type="text" class="form-control" contenteditable value="{{ f.hours_run }}" onchange="update_hours_run({{f.pk}});">
-            
+        <div class="button_group">
+            <b>Gelaufene Stunden: {{f.hours_run}}</b>
+            <input type="button" style="background-color: chartreuse;" value="Laufzeit hinzufügen" onclick="update_hours_run({{f.pk}});">
         </div>
     </div>
     <div class="card-footer p-1">
-        <div class="input-group">
-            <span class="input-group-text" id="hours-run-{{ f.pk }}">Nächste UVV</span>
-            <input type="date" class="form-control" value="{{ f.next_check }}">
+        <div class="button_group">
+            <b>Nächste UVV: {{f.next_check}}</b>
+            <input type="button" style="background-color: chartreuse;" value="Termin ändern" onclick="update_next_check({{f.pk}});">
         </div>
     </div>
 </div>
