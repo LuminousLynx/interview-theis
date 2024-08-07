@@ -36,9 +36,9 @@ class Workshop(models.Model):
 
     can_fix_brands = models.JSONField(default=dict)
     
-    fastest_repair_times = models.JSONField(default=dict)
-    lowest_mean_price = models.JSONField(default=dict)
-    reliability_rating = models.JSONField(default=dict)         
+    fastest_repair_times = models.JSONField(default=dict, null=True)
+    lowest_mean_price = models.JSONField(default=dict, null=True)
+    reliability_rating = models.IntegerField(default=5, null=True)         
 
     def __str__(self):
         return f'{self.name}'
@@ -57,7 +57,7 @@ class Repair(models.Model):
 
     start_date = models.DateField(default=datetime.date.today)
     end_date = models.DateField(default=datetime.date(year=2024, month=12, day=31))
-    repair_time = models.IntegerField(null=True)
+    repair_time = models.FloatField(null=True)
 
     repair_cost = models.IntegerField(null=True)
     
