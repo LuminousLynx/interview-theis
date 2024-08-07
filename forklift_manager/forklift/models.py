@@ -11,7 +11,7 @@ class Forklift(models.Model):
     type = models.CharField(max_length=30)
 
     max_load = models.IntegerField(default=800)
-    hours_run = models.FloatField(default=0)
+    hours_run = models.CharField(default="0", max_length=10)
     next_check = models.DateField(null=True, blank=True, default=None)         
 
     can_operate = models.BooleanField(default=True)

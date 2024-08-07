@@ -24,7 +24,7 @@
             data: JSON.stringify({
                 operator_id: operator_id,
                 forklift_id: forklift_id,
-                allowed: $('#operator-' + operator_id + '-' + forklift_id).prop(checked=true),
+                allowed: $('#operator-' + operator_id + '-' + forklift_id).prop('checked'),
             }),
         }).done(function (data) {
             location.reload();
@@ -45,7 +45,7 @@
             contentType: 'application/json',
             data: JSON.stringify({
                 forklift_id: forklift_id,
-                can_operate: $('#can-operate-' + forklift_id).prop(checked=true),
+                can_operate: $('#can-operate-' + forklift_id).prop('checked'),
             }),
         }).done(function (data) {
             location.reload();
@@ -53,6 +53,28 @@
             console.error("Failed to toggle operator: ", data)
         }).always(function (data) {
             console.log("Successfully toggled operator.")
+        });
+    }
+
+    function update_hours_run(forklift_id){
+        var hoursRun = String($("#hours-run-" + forklift_id).get(value));
+        $.ajax({
+            type: 'PUT',
+            url: '{% url "forklift:hours_run" %}',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}',
+            },
+            contentType: 'application/json',
+            data: JSON.stringify({
+                forklift_id: forklift_id,
+                hours_run: hoursRun,
+            }),
+        }).done(function (data) {
+            location.reload();
+        }).fail(function (data) {
+            console.error("Failed to update hours run: ", data)
+        }).always(function (data) {
+            console.log("Successfully updated hours run.")
         });
     }
 </script>
