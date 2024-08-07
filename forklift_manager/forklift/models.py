@@ -57,8 +57,10 @@ class Repair(models.Model):
 
     start_date = models.DateField(default=datetime.date.today)
     end_date = models.DateField(default=datetime.date(year=2024, month=12, day=31))
-    repair_time = models.FloatField(null=True)
+    
+    message = models.CharField(max_length=2000, default="Sehr geehrtes Werkstatt-Team!\nWir möchten einen unserer Stapler bei Ihnen reparieren lassen. Wann wäre dies möglich? \nMfG \nflaschenpost-Warehouse")
 
+    repair_time = models.FloatField(null=True)
     repair_cost = models.IntegerField(null=True)
     
     def __str__(self):

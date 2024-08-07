@@ -96,3 +96,14 @@ def update_next_check(request: HttpRequest) -> HttpResponseBase:
         return HttpResponse("This page has no content. The URL to this page is used automatically.")
     except Exception as e:
         return HttpResponseBadRequest(e)
+
+#see if needed
+def auto_check(request: HttpRequest) -> HttpResponseBase:
+    try:
+        if request.method == "POST":
+
+            print("Hello")
+            return HttpRequest()
+        return HttpResponse("This page has no content. The URL to this page is used automatically.")
+    except Exception as e:
+        return HttpResponseBadRequest(e)
