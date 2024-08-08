@@ -17,6 +17,10 @@ class Forklift(models.Model):
     can_operate = models.BooleanField(default=True)
     allowed_operators = models.JSONField(default=list)
 
+    location = models.CharField(max_length=50, default="Münster")
+    workshops = models.JSONField(default=list)
+    fastest_workshop = models.IntegerField(default=0)
+
     def __str__(self):
         return f'{self.serial_no}'
 
@@ -52,19 +56,22 @@ class Workshop(models.Model):
 
 
 class Repair(models.Model):
-    workshop_id = models.ForeignKey("Workshop", on_delete=models.CASCADE, null=True)
-    model = models.ForeignKey("Forklift", on_delete=models.CASCADE, null=True)
+
+    active = models.BooleanField(default=True)
+    
+    model_id = models.CharField(max_length=30, null=True)
+    workshop_id_id = models.CharField(max_length=50, null=True)
 
     start_date = models.DateField(default=datetime.date.today)
     end_date = models.DateField(default=datetime.date(year=2024, month=12, day=31))
     
     message = models.CharField(max_length=2000, default="Sehr geehrtes Werkstatt-Team!\nWir möchten einen unserer Stapler bei Ihnen reparieren lassen. Wann wäre dies möglich? \nMfG \nflaschenpost-Warehouse")
 
-    repair_time = models.FloatField(null=True)
-    repair_cost = models.IntegerField(null=True)
+    repair_time = models.IntegerField(null=True)
+    repair_cost = models.FloatField(null=True)
     
     def __str__(self):
-        return f'{self}'
+        return f'{self.model_id}'
 
     class Meta:
         db_table = ''

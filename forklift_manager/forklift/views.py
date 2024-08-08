@@ -2,14 +2,26 @@ from django.shortcuts import render
 from django.http.request import HttpRequest
 from django.http.response import HttpResponse, HttpResponseBadRequest, HttpResponseBase
 
-from forklift.models import Forklift
+from forklift.models import Forklift, Repair
 import json
 import datetime
 
 # Create your views here.
 def overview(request: HttpRequest) -> HttpResponseBase:
+
+    user = request.user
+    
+    if user.groups.filter(name="admin").exists():
+        forklifts = Forklift.objects.all()
+    elif user.groups.filter(name="Münster").exists():
+        forklifts = Forklift.objects.filter(location="Münster")
+    elif user.groups.filter(name="Berlin").exists():
+        forklifts = Forklift.objects.filter(location="Berlin")
+    elif user.groups.filter(name="Köln").exists():
+        forklifts = Forklift.objects.filter(location="Köln")
+    
     return render(request, 'forklift/overview.html', {
-        'forklifts': Forklift.objects.all(),
+        'forklifts': forklifts,
     })
 
 
@@ -100,10 +112,72 @@ def update_next_check(request: HttpRequest) -> HttpResponseBase:
 #see if needed
 def auto_check(request: HttpRequest) -> HttpResponseBase:
     try:
-        if request.method == "POST":
+        if request.method == "PUT":
 
-            print("Hello")
+            #TO DO: implement
             return HttpRequest()
+        return HttpResponse("This page has no content. The URL to this page is used automatically.")
+    except Exception as e:
+        return HttpResponseBadRequest(e)
+    
+
+def request_repair(request: HttpRequest) -> HttpResponseBase:
+    try:
+        if request.method == "PUT":
+
+            data = json.loads(request.body)
+            
+            forklift_id = data.get("forklift_id")
+            message = data.get("message")
+            w1 = data.get("w1")
+            w2 = data.get("w2")
+            w3 = data.get("w3")
+
+            if w1:
+                workshop = 1
+            elif w2:
+                workshop = 2
+            elif w3:
+                workshop = 3
+
+            repair = Repair()
+            repair.workshop_id_id = workshop
+            repair.model_id = forklift_id
+            repair.message = message 
+
+            repair.save()
+            return HttpResponse()
+        return HttpResponse("This page has no content. The URL to this page is used automatically.")
+    except Exception as e:
+        return HttpResponseBadRequest(e)
+    
+def end_repair(request: HttpRequest) -> HttpResponseBase:
+    try:
+        if request.method == "PUT":
+            
+            data = json.loads(request.body)
+            
+            forklift_id = data.get("forklift_id")
+            price = data.get("price")
+
+            repair = Repair.objects.get(active=True, model_id=forklift_id)
+
+            end_date = datetime.date.today()
+            formatted_end_date = end_date.strftime("%Y-%m-%d")
+            start_date_list = str(repair.start_date).split("-")
+            
+            start_date = datetime.date(year=int(start_date_list[0]), month=int(start_date_list[1]), day=int(start_date_list[2]))
+            
+            repair_time = end_date - start_date
+            
+            repair.end_date = formatted_end_date
+            repair.repair_cost = float(price)
+            repair.repair_time = repair_time.days
+            repair.active = False
+
+            repair.save()
+
+            return HttpResponse()
         return HttpResponse("This page has no content. The URL to this page is used automatically.")
     except Exception as e:
         return HttpResponseBadRequest(e)

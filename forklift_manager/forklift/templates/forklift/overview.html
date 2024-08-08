@@ -101,6 +101,59 @@
             console.log("Successfully updated next check.")
         });
     }
+
+    function request_repair(forklift_id){
+
+        let message = prompt("Gib hier deine Nachricht an die Werkstatt ein:").toString()
+
+        $("#in-repairs-"+forklift_id).prop("checked", true)
+        $.ajax({
+            type: 'PUT',
+            url: '{% url "forklift:request_repair" %}',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}',
+            },
+            contentType: 'application/json',
+            data: JSON.stringify({
+                forklift_id: forklift_id,
+                message: message,
+                w1: $("#workshop-1-" + forklift_id).prop('checked'),
+                w2: $("#workshop-2-" + forklift_id).prop('checked'),
+                w3: $("#workshop-3-" + forklift_id).prop('checked'),
+            }),
+        }).done(function (data) {
+            location.reload();
+        }).fail(function (data) {
+            console.error("Failed to request repair: ", data)
+        }).always(function (data) {
+            console.log("Successfully requested repair.")
+        });
+    }
+
+    function end_repair(forklift_id){
+
+        let price = prompt("Gib hier die Kosten der Reparatur ein. Trenne Cents bitte durch einen Punkt und gibt kein Euro-Zeichen ein.")
+
+        $("#in-repairs-"+forklift_id).prop("checked", false)
+        $.ajax({
+            type: 'PUT',
+            url: '{% url "forklift:end_repair" %}',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}',
+            },
+            contentType: 'application/json',
+            data: JSON.stringify({
+                forklift_id: forklift_id,
+                price: price,
+            }),
+        }).done(function (data) {
+            location.reload();
+        }).fail(function (data) {
+            console.error("Failed to request repair: ", data)
+        }).always(function (data) {
+            console.log("Successfully requested repair.")
+        });
+    }
 </script>
 {% endblock script %}
     
