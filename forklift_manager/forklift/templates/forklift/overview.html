@@ -6,7 +6,7 @@
     <h2><b>Übersicht Staplerfahrzeuge</b></h2>
     <div style="display: grid; gap: .5rem; grid-template-columns: repeat(5, 1fr);">
         {% for f in forklifts %}
-           <div class="forklift-card" data-id="{{ f.pk }}" data-next-check="{{ f.next_check }}" data-workshop="{{f.fastest_workshop}}" style="display: none;"></div>
+           <!---<div class="forklift-card" data-id="{{ f.pk }}" data-next-check="{{ f.next_check }}" data-workshop="{{f.fastest_workshop}}" style="display: none;"></div>--->
             {% include 'forklift/forklift_card.html' %}
         {% endfor %}
     </div>
@@ -156,7 +156,7 @@
         });
     }
 
-    function auto_check(forklift_id, next_check, fastest_workshop){
+    /*function auto_check(forklift_id, next_check, fastest_workshop){
         
         $.ajax({
             type: 'PUT',
@@ -189,6 +189,7 @@
             auto_check(forklift_id, next_check, fastest_workshop);
         });
     });
+    */
 </script>
 {% endblock script %}
     
