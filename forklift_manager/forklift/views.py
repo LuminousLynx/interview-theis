@@ -109,12 +109,30 @@ def update_next_check(request: HttpRequest) -> HttpResponseBase:
     except Exception as e:
         return HttpResponseBadRequest(e)
 
-#see if needed
+# TO DO: fix this!!
 def auto_check(request: HttpRequest) -> HttpResponseBase:
     try:
         if request.method == "PUT":
 
-            #TO DO: implement
+            data = json.loads(request.body)
+            forklift_id = data.get("forklift_id")
+            next_check = data.get("next_check")
+            workshop = data.get("fastest_workshop")
+
+            check_date_list = str(next_check).split("-")
+            check_date = datetime.date(year=int(check_date_list[0]), month=int(check_date_list[1]), day=int(check_date_list[2]))
+
+            diff = check_date - datetime.date.today()
+
+            if diff < 14:
+
+                repair = Repair()
+                repair.workshop_id_id = workshop
+                repair.model_id = forklift_id
+                repair.start_date = next_check
+
+                repair.save()
+
             return HttpRequest()
         return HttpResponse("This page has no content. The URL to this page is used automatically.")
     except Exception as e:

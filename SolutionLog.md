@@ -17,7 +17,14 @@ Lösung der Tickbox-Backends mit JSON und ajax. Probleme gab es bei Eingabefelde
 
 Facelift Interface als kleine Spielerei: Erste Berührung mit html templates!
 
+alle funktionalitäten über PUT und json aus Zeitgründen
+
 ## Erweiterung 1
 Zwei weitere DBs erstellt: Workshop für Werkstätten und Repair für einzelne Reparaturen.
 Workshop DB wurde dabei schon um "niedrigster Durchschnittspreis" und einen "Reliability-Score" ergänzt - dies könnten spätere Kriterien für die Werkstattauswahl sein (z.B. Wähle zwischen schneller, günstiger oder zuverlässiger Reparatur je nach Bedarf).
+
+Auto-Check noch nicht fertig implementiert, wirft noch bad request
+
+## Erweiterung 2
+Lösung über User groups vor rendering des GUI
 
